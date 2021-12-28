@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Review" ALTER COLUMN "date" DROP NOT NULL,
+ALTER COLUMN "platformReviewId" DROP NOT NULL,
+ALTER COLUMN "ratingValue" DROP NOT NULL;

@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://jesse:123@localhost:5432/mydb?schema=sample"
+}
+
+model StoreChanel {
+  platformStoreId          String     @id
+  createdAt                DateTime   @default(now())
+  phone                    String?
+  city                     String?
+  priceLevel               String?
+  rating                   Float?
+  platformStoreName        String?
+  platformStoreDescription String?
+  platformStoreAdress      String?
+  platformStoreUrl         String?
+  note                     String?
+  requestToGoogleMaps      Boolean?
+  review                   Review[]
+  Products                 Products[]
+}
+
+model Review {
+  id                         Int          @id @default(autoincrement())
+  date                       DateTime?
+  platformReviewId           String?
+  ratingValue                Float?
+  review                     String?
+  reviewerId                 String?
+  reviewerAvatar             String?
+  reviewerFirstName          String?
+  reviewerLastName           String?
+  reviewerCount              Int?
+  userId                     String?
+  StoreChanel                StoreChanel? @relation(fields: [storeChanelPlatformStoreId], references: [platformStoreId])
+  storeChanelPlatformStoreId String?
+}
+
+model Products {
+  id                         Int          @id @default(autoincrement())
+  platformProductId          String
+  storeName                  String
+  category                   String
+  name                       String
+  description                String
+  imageUrl                   String
+  currency                   String
+  price                      Int
+  discountedPrice            Int
+  productId                  Int
+  StoreChanel                StoreChanel? @relation(fields: [storeChanelPlatformStoreId], references: [platformStoreId])
+  storeChanelPlatformStoreId String?
+}
